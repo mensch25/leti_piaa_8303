@@ -1,15 +1,15 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#define DBG
+//#define DBG
 using namespace std;
 
 //функция подсчета префиксной функции для строки
 vector<int> prefix(string str){
     //создаем вектор необходимого размера
-    vector<int> p(str.size(), 0);
+    vector<int> p(str.length()+1, 0);
     p[0] = 0;
-    for (int i = 1; i <= str.size(); i++) {
+    for (int i = 1; i <= str.length(); i++) {
         //начинаем проверять равенство символов начиная с символа под номером k,
         //который равен префиксной функции на предыдущем шаге
         int k = p[i - 1];
@@ -35,10 +35,10 @@ vector<int> findSubstring(string temp, string text){
     cout << endl;
 #endif
     vector<int> res;
-    int m = temp.size();
+    int m = temp.length();
     int k = 0;
     //начинаем проверять равенство символов начиная с нулевого символа
-    for (int i = 0; i < text.size(); i++) {
+    for (int i = 0; i < text.length(); i++) {
 
         while (k > 0 && temp[k] != text[i])
             k = p[k - 1];
@@ -51,7 +51,7 @@ vector<int> findSubstring(string temp, string text){
 
         cout << "Prefix function of \""
         << green << temp.substr(0, k) << reset
-        << '|' + temp.substr(k, temp.size()-k) <<
+        << '|' + temp.substr(k, temp.length()-k) <<
         "\" and \"" + text.substr(0, i-k+1) + '|'
         << green << text.substr(i-k+1, k) << reset
         << "\" = " << k << endl;
@@ -66,7 +66,8 @@ vector<int> findSubstring(string temp, string text){
 int main() {
     string temp;
     string text;
-    cin >> temp >> text;
+    cin >> temp;
+    cin >> text;
 
     vector<int> res = findSubstring(temp, text);
 
